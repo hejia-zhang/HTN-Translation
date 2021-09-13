@@ -1,0 +1,34 @@
+(define (domain block-moving-one)
+(:requirements :strips)
+(:predicates 
+    (Agent ?a)
+    (yellow-blocks-in-place)
+    (red-blocks-in-place))
+
+(:tasks
+    (move-all-blocks-one ?a0 ?a1)
+    (move-all-red-blocks-one ?a0 ?a1)
+    (move-all-yellow-blocks-one ?a0 ?a1))
+
+(:method move-all-blocks-one
+ :parameters (?a0 ?a1)
+ :task (move-all-blocks-one ?a0 ?a1)
+ :precondition (and (Agent ?a0)
+                    (Agent ?a1))
+ :tasks ((move-all-red-blocks-one ?a0 ?a1) (move-all-yellow-blocks-one ?a0 ?a1))
+)
+
+(:action move-all-red-blocks-one 
+ :parameters (?a0 ?a1)
+ :task (move-all-red-blocks-one ?a0 ?a1)
+ :precondition (and (Agent ?a0)
+                    (Agent ?a1))
+ :effect (and (red-blocks-in-place)))
+
+(:action move-all-yellow-blocks-one
+ :parameters (?a0 ?a1)
+ :task (move-all-yellow-blocks-one ?a0 ?a1)
+ :precondition (and (Agent ?a0)
+                    (Agent ?a1))
+ :effect (and (yellow-blocks-in-place)))
+)

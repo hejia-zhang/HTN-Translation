@@ -1,0 +1,45 @@
+(define (domain block-moving-parallel)
+(:requirements :strips)
+(:predicates
+    (Agent ?a)
+    (Block ?b)
+    (Region ?r)
+
+    (InRegion ?b ?r)
+    (yellow-blocks-in-place)
+    (red-blocks-in-place))
+
+(:tasks 
+    (move-all-blocks-parallel ?a0 ?a1)
+    (move-all-red-blocks-parallel ?a0 ?a1)
+    (move-all-yellow-blocks-parallel ?a0 ?a1)
+)
+
+(:method move-all-blocks-parallel
+ :parameters (?a0 ?a1)
+ :task (move-all-blocks-parallel ?a0 ?a1)
+ :precondition (and (Agent ?a0) (Agent ?a1))
+ :tasks ((move-all-red-blocks-parallel ?a0 ?a1) (move-all-yellow-blocks-parallel ?a0 ?a1))
+)
+
+;(:method move-all-blocks-parallel-2
+; :parameters ()
+; :task (move-all-blocks-parallel)
+; :precondition ()
+; :tasks ((move-all-yellow-blocks-parallel) (move-all-red-blocks-parallel))
+;)
+
+(:action move-all-yellow-blocks-parallel
+ :parameters (?a0 ?a1)
+ :task (move-all-yellow-blocks-parallel ?a0 ?a1)
+ :precondition (and (Agent ?a0) (Agent ?a1))
+ :effect (and (yellow-blocks-in-place))
+)
+
+(:action move-all-red-blocks-parallel
+ :parameters (?a0 ?a1)
+ :task (move-all-red-blocks-parallel ?a0 ?a1)
+ :precondition (and (Agent ?a0) (Agent ?a1))
+ :effect (and (red-blocks-in-place)))
+ 
+)

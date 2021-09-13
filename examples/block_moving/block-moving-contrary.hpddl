@@ -1,0 +1,33 @@
+(define (domain block-moving-contrary)
+(:requirements :strips)
+(:predicates
+    (Agent ?a)
+    (yellow-blocks-in-place)
+    (red-blocks-in-place))
+    
+(:tasks 
+    (move-all-blocks-contrary ?a0 ?a1)
+    (move-all-red-blocks-single ?a)
+    (move-all-yellow-blocks-single ?a))
+    
+(:method move-all-blocks-contrary
+ :parameters (?a0 ?a1)
+ :task (move-all-blocks-contrary ?a0 ?a1)
+ :precondition (and (Agent ?a0)
+                    (Agent ?a1))
+ :tasks ((move-all-red-blocks-single ?a0) (move-all-yellow-blocks-single ?a1))
+)
+
+(:action move-all-red-blocks-single
+ :parameters (?a)
+ :task (move-all-red-blocks-single ?a)
+ :precondition (and (Agent ?a))
+ :effect (and (red-blocks-in-place)))
+
+(:action move-all-yellow-blocks-single
+ :parameters (?a)
+ :task (move-all-yellow-blocks-single ?a)
+ :precondition (and (Agent ?a))
+ :effect (and (yellow-blocks-in-place)))
+
+)

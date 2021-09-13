@@ -1,0 +1,9 @@
+(define
+    (problem block-moving-contrary-problem)
+    (:domain block-moving-contrary)
+    (:objects a0 a1)
+    (:init (Agent a0) (Agent a1))
+    (:tasks ((move-all-blocks-contrary a0 a1)))
+    (:goal (and (red-blocks-in-place)
+                (yellow-blocks-in-place)))
+)
